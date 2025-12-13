@@ -1,8 +1,8 @@
-import React from "react";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Asher AI",
-  description: "Asher AI — Galaxy-themed AI website builder",
+  description: "Asher AI – AI-powered website builder",
 };
 
 export default function RootLayout({
@@ -16,7 +16,13 @@ export default function RootLayout({
         style={{
           margin: 0,
           padding: 0,
-          backgroundColor: "#000000",
-          color: "#e9d5ff",
-          fontFamily:
-            "-apple-system, BlinkMacSystemFont, 'Segoe UI',
+          background: "black",
+          color: "white",
+          fontFamily: "system-ui, sans-serif",
+        }}
+      >
+        {children}
+      </body>
+    </html>
+  );
+}
