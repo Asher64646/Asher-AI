@@ -1,9 +1,24 @@
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  const { brief } = await req.json();
-  return NextResponse.json({
-    title: "Asher AI Generated Site",
-    pages: [{ path: "/", title: "Home", html: `<h1>${brief}</h1>` }],
-  });
+  const { description } = await req.json();
+
+  const generated = `
+Website Structure:
+- Home: Hero, CTA, features
+- About: Brand story, mission
+- Services: What you offer
+- Contact: Email form
+
+Style:
+- Modern
+- Clean
+- Professional
+- Purple / black galaxy theme
+
+Based on:
+"${description}"
+`;
+
+  return NextResponse.json({ result: generated });
 }
