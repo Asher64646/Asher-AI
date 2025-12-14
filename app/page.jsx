@@ -1,9 +1,12 @@
 "use client";
-import { useSession, signIn, signOut } from "next-auth/react";
+
 import { useMemo, useState } from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
 import JSZip from "jszip";
 
 export default function Page() {
+  const { data: session } = useSession();
+
   const [brief, setBrief] = useState("");
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
@@ -22,7 +25,7 @@ export default function Page() {
   }, [currentPage, edits]);
 
   // ================================
-  // GENERATE SITE (NO PHASE 4 LIMIT)
+  // GENERATE SITE
   // ================================
   async function generate(e) {
     e.preventDefault();
@@ -109,10 +112,22 @@ Home page is index.html
             </div>
           </div>
 
+          {/* 🔐 LOGIN / LOGOUT */}
           <div className="row">
+            {session ? (
+              <button className="btn" onClick={() => signOut()}>
+                Sign out
+              </button>
+            ) : (
+              <button className="btn" onClick={() => signIn()}>
+                Sign in
+              </button>
+            )}
+
             <button className="btn" onClick={() => setShowPreview((v) => !v)}>
               {showPreview ? "Hide Preview" : "Show Preview"}
             </button>
+
             <button className="btn btnPrimary" disabled={!manifest} onClick={exportZip}>
               Export ZIP
             </button>
@@ -161,19 +176,37 @@ Home page is index.html
             </div>
 
             <div className="row">
-              <button className="btn" type="button" onClick={() => setPreset(
-                "A sleek agency portfolio with services, case studies, pricing, testimonials, contact. Galaxy black/purple theme."
-              )}>
+              <button
+                className="btn"
+                type="button"
+                onClick={() =>
+                  setPreset(
+                    "A sleek agency portfolio with services, case studies, pricing, testimonials, contact. Galaxy black/purple theme."
+                  )
+                }
+              >
                 Agency
               </button>
-              <button className="btn" type="button" onClick={() => setPreset(
-                "A personal portfolio with hero, projects, about, skills, contact. Dark premium style."
-              )}>
+              <button
+                className="btn"
+                type="button"
+                onClick={() =>
+                  setPreset(
+                    "A personal portfolio with hero, projects, about, skills, contact. Dark premium style."
+                  )
+                }
+              >
                 Portfolio
               </button>
-              <button className="btn" type="button" onClick={() => setPreset(
-                "A SaaS landing page with features, pricing, FAQs, testimonials, and a strong CTA. Purple/black modern."
-              )}>
+              <button
+                className="btn"
+                type="button"
+                onClick={() =>
+                  setPreset(
+                    "A SaaS landing page with features, pricing, FAQs, testimonials, and a strong CTA. Purple/black modern."
+                  )
+                }
+              >
                 SaaS
               </button>
             </div>
