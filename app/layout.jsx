@@ -1,16 +1,15 @@
-import Providers from "./providers";
+import "./globals.css";
 
 export const metadata = {
   title: "Asher AI",
-  description: "Free AI Website Builder",
+  description: "Free AI website builder"
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        <Providers>{children}</Providers>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
+
